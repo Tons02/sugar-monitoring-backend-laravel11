@@ -9,3 +9,4 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::resource("user", UserController::class);
+Route::put('user-archived/{id}',[UserController::class,'archived']);
