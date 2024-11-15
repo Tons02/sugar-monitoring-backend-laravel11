@@ -83,9 +83,6 @@ class UserController extends Controller
         
         if ($user->deleted_at) {
 
-            $user->update([
-                'is_active' => 1
-            ]);
             $user->restore();
             return $this->responseSuccess('User restored successfully', $user);
         }
@@ -93,9 +90,6 @@ class UserController extends Controller
 
         if (!$user->deleted_at) {
 
-            $user->update([
-                'is_active' => 0
-            ]);
             $user->delete();
             return $this->responseSuccess('User archived successfully', $user);
 

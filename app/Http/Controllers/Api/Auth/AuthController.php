@@ -35,4 +35,11 @@ class AuthController extends Controller
         ], 200)->withCookie($cookie);
         
     }
+
+    public function Logout(Request $request){
+        
+        auth('sanctum')->user()->currentAccessToken()->delete();
+        return $this->responseSuccess('Logout successfully');
+
+    }
 }
