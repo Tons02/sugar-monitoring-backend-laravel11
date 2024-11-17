@@ -26,6 +26,8 @@ class DailySugarController extends Controller
         ->dynamicPaginate();
         
         $is_empty = $dailySugar->isEmpty();
+        
+        DailySugarResource::collection($dailySugar);
 
         if ($is_empty) {
             return $this->responseNotFound('No Data Found', 'No Data Found');

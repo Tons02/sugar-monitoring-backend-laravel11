@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Essa\APIToolKit\Api\ApiResponse;
 use Illuminate\Http\Request;
@@ -25,6 +26,8 @@ class UserController extends Controller
         ->dynamicPaginate();
         
         $is_empty = $user->isEmpty();
+
+        UserResource::collection($user);
 
         if ($is_empty) {
             return $this->responseNotFound('No Data Found', 'No Data Found');
