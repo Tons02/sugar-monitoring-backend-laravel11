@@ -29,10 +29,7 @@ class UserController extends Controller
 
         UserResource::collection($user);
 
-        if ($is_empty) {
-            return $this->responseNotFound('No Data Found', 'No Data Found');
-        }
-            return $this->responseSuccess('User Display successfully', $user);
+        return $this->responseSuccess('User Display successfully', $user);
     }
 
     public function store(UserRequest $request){
@@ -45,7 +42,7 @@ class UserController extends Controller
             "mobile_number" => $request->mobile_number,
             "email" => $request->email,
             "username" => $request->username,
-            "password" => $request->password,
+            "password" => $request->username,
         ]);
 
         return $this->responseSuccess('User Created successfully', $create_user);
