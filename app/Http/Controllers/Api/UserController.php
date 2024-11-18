@@ -27,7 +27,7 @@ class UserController extends Controller
         
         $is_empty = $user->isEmpty();
 
-        UserResource::collection($user);
+        // UserResource::collection($user);
 
         return $this->responseSuccess('User Display successfully', $user);
     }

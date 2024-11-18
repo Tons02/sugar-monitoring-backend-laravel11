@@ -23,7 +23,6 @@ class UserRequest extends FormRequest
     {
         return [
             "first_name" => "sometimes|required",
-            "middle_name" => "sometimes|required",
             "last_name" => "sometimes|required",
             "gender" => "sometimes|required|in:male,female",
             "mobile_number" => [
