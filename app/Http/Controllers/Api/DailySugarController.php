@@ -29,18 +29,25 @@ class DailySugarController extends Controller
         
         DailySugarResource::collection($dailySugar);
 
-        if ($is_empty) {
-            return $this->responseNotFound('No Data Found', 'No Data Found');
-        }
-            return $this->responseSuccess('Daily Sugar Display successfully',  DailySugarResource::collection($dailySugar));
+        return $this->responseSuccess('Daily Sugar Display successfully',  DailySugarResource::collection($dailySugar));
     }
 
     public function store(DailySugarRequest $request){
+
+        
+        if ($request->mgdl > 125) {
+            $status = 'high';  // For mg/dL above 126
+        } elseif ($request->mgdl < 70) {
+            $status = 'low';   // For mg/dL below 70
+        } elseif ($request->mgdl >= 70 && $request->mgdl <= 125) {
+            $status = 'normal'; // For mg/dL between 70 and 125
+        }
 
         $createDailyRecord = DailySugar::create(attributes: [
             "user_id" =>  auth('sanctum')->user()->id,
             "mgdl" => $request->mgdl,
             "description" => $request->description,
+            "status" => $status,
             "date" => $request->date,
         ]);
 
@@ -49,6 +56,14 @@ class DailySugarController extends Controller
 
     public function update(DailySugarRequest $request, $id)
     {   
+        if ($request->mgdl > 125) {
+            $status = 'high';  // For mg/dL above 126
+        } elseif ($request->mgdl < 70) {
+            $status = 'low';   // For mg/dL below 70
+        } elseif ($request->mgdl >= 70 && $request->mgdl <= 125) {
+            $status = 'normal'; // For mg/dL between 70 and 125
+        }
+
         $DailySugarID = DailySugar::find($id);
 
         if (!$DailySugarID) {
@@ -57,6 +72,7 @@ class DailySugarController extends Controller
 
         $DailySugarID->mgdl = $request['mgdl'];
         $DailySugarID->description = $request['description'];
+        $DailySugarID->status = $status;
         $DailySugarID->date = $request['date'];
 
         if (!$DailySugarID->isDirty()) {

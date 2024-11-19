@@ -17,6 +17,7 @@ class DailySugar extends Model
         'user_id',
         'mgdl',
         'description',
+        'status',
         'date',
     ];
 

@@ -25,5 +25,6 @@ Route::put('daily-sugar-archived/{id}',[DailySugarController::class,'archived'])
 
 // logout 
 Route::post('logout',[AuthController::class,'logout']);
+
 });
 

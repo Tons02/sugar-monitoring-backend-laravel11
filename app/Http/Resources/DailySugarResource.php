@@ -22,8 +22,8 @@ class DailySugarResource extends JsonResource
             ],
             'mgdl' => $this->mgdl,
             'description' => $this->description,
+            'status' => $this->status,
             'date' => $this->date,
-            'is_active' => $this->is_active,
             'created_at' => $this->created_at
         ];
     }

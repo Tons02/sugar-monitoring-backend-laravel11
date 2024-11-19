@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedInteger(column: "user_id")->index();
             $table->double('mgdl');
             $table->string('description');
+            $table->string('status');
             $table->dateTime('date');
             $table->timestamps();
             $table->softDeletes();
