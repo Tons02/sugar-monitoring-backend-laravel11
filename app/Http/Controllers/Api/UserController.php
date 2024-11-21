@@ -43,6 +43,7 @@ class UserController extends Controller
             "email" => $request->email,
             "username" => $request->username,
             "password" => $request->username,
+            "userType" => $request->userType,
         ]);
 
         return $this->responseSuccess('User Created successfully', $create_user);
@@ -63,6 +64,7 @@ class UserController extends Controller
         $user_id->mobile_number = $request['mobile_number'];
         $user_id->email = $request['email'];
         $user_id->username = $request['username'];
+        $user_id->userType = $request['userType'];
 
         if (!$user_id->isDirty()) {
             return $this->responseSuccess('No Changes', $user_id);

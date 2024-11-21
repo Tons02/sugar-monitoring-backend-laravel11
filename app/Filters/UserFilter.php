@@ -14,5 +14,6 @@ class UserFilter extends QueryFilters
         "mobile_number",
         "email",
         "username",
+        "userType"
     ];
 }

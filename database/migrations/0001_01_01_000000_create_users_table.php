@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string(column: 'username')->unique();
             $table->string('password');
+            $table->enum("userType", ["admin", "user"]);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
