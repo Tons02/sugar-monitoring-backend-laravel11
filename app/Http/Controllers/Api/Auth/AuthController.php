@@ -24,7 +24,13 @@ class AuthController extends Controller
             return $this->responseBadRequest('Invalid Credentials.', 'Invalid Credentials');
         }
 
-        $token = $login->createToken('myapptoken')->plainTextToken;
+        if($login->userType === 'admin'){
+            $token = $login->createToken('admin', ['user:crud', 'daily_monitoring:crud'])->plainTextToken;
+        }
+        if($login->userType === 'user'){
+            $token = $login->createToken('user', ['daily_monitoring:crud'])->plainTextToken;
+        }
+
         $cookie = cookie('authcookie',$token);
 
         return response()->json([
