@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\ForgetPasswordRequest;
 use App\Models\User;
 use Essa\APIToolKit\Api\ApiResponse;
 use Illuminate\Http\Request;
@@ -47,5 +49,45 @@ class AuthController extends Controller
         auth('sanctum')->user()->currentAccessToken()->delete();
         return $this->responseSuccess('Logout successfully');
 
+    }
+
+    public function resetPassword(Request $request, $id){
+        $user = User::where('id', $id)->first();
+
+        if (!$user) {
+            return $this->responseUnprocessable('ID not found', 'ID not found');
+        }
+        
+        $user->update([
+            'password' => $user->username,
+        ]);
+        return $this->responseSuccess('Reset password successfully', $user);
+    }
+
+    public function changedPassword(ChangePasswordRequest $request){
+
+        $user = auth('sanctum')->user();
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+    
+        return $this->responseSuccess('Change password successfully', $user);
+    }
+
+    public function forgetPassword(ForgetPasswordRequest $request, $mobileNumber){
+
+    
+        $id = User::where('contact_details', $mobileNumber)->first();
+
+        if (!$id) {
+            return $this->responseUnprocessable('ID not found', 'ID not found');
+        }
+        
+        $id->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+    
+        return $this->responseSuccess('Forget password successfully', $id);
     }
 }

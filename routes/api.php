@@ -7,18 +7,18 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\DailySugarController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
-
 
 Route::post('login',[AuthController::class,'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
+// Auth controller
+Route::patch('changepassword',[AuthController::class,'changedPassword']);
+Route::patch('resetpassword/{id}',[AuthController::class,'resetPassword']);
+
 // user controller
 Route::Resource("user", UserController::class)->middleware(['abilities:user:crud']);
-Route::put('user-archived/{id}',[UserController::class,'archived'])->middleware(['abilities:user:create, user:update, user:delete']);
+Route::put('user-archived/{id}',[UserController::class,'archived'])->middleware(['abilities:user:crud']);
 
 // user controller
 Route::Resource("daily-sugar", DailySugarController::class)->middleware(['abilities:daily_monitoring:crud']);

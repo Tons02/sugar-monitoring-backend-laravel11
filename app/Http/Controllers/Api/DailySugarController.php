@@ -25,11 +25,9 @@ class DailySugarController extends Controller
         ->useFilters()
         ->dynamicPaginate();
         
-        $is_empty = $dailySugar->isEmpty();
-        
         DailySugarResource::collection($dailySugar);
 
-        return $this->responseSuccess('Daily Sugar Display successfully',  DailySugarResource::collection($dailySugar));
+        return $this->responseSuccess('Daily Sugar Display successfully',  $dailySugar);
     }
 
     public function store(DailySugarRequest $request){

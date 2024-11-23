@@ -16,10 +16,7 @@ class DailySugarResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => [
-                'id' => $this->user->id,
-                'name' => trim($this->user->first_name . ' ' . $this->user->middle_name . ' ' . $this->user->last_name), 
-            ],
+            'name' => trim($this->user->first_name . ' ' . $this->user->middle_name . ' ' . $this->user->last_name),
             'mgdl' => $this->mgdl,
             'description' => $this->description,
             'status' => $this->status,
